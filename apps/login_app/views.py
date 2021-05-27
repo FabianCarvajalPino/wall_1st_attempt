@@ -59,7 +59,7 @@ def logout(request):
     return redirect('/')
 
 def wall(request):
-    messages = Message.objects.all()
+    messages = Message.objects.all().order_by("-created_at")
     comments = Comment.objects.all()
     #print(messages.users)
     context = {
@@ -79,4 +79,11 @@ def post_message(request):
     return redirect ('/wall')
 
 def post_comment(request):
+    user = User.objects.get(id = request.session['userid'])
+    message = Message.objects.get(id = request.POST['message_id'])
+    Comment.objects.create(
+        user = user,
+        message = message,
+        comment = request.POST['comment']
+    )
     return redirect ('/wall')

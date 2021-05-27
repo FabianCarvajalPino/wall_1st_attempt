@@ -30,15 +30,15 @@ class User(models.Model):
     objects = UserManager()
 
 class Message(models.Model):
-    user = models.ForeignKey(User, related_name='messages', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 
 class Comment(models.Model):
-    message = models.ForeignKey(Message, related_name='messages', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE)
+    message = models.ForeignKey(Message, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
